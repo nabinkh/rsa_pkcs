@@ -32,6 +32,34 @@ class RSAPKCSParser {
     }
     return RSAKeyPair(_publicKey(lines), _privateKey(lines));
   }
+  
+  /// Parse Private PEM
+  RSAKeyPair parsePrivatePEM(String pem, {String password}) {
+    final List<String> lines = pem
+        .split('\n')
+        .map((String line) => line.trim())
+        .where((String line) => line.isNotEmpty)
+        .skipWhile((String line) => !line.startsWith(pkcsHeader))
+        .toList();
+    if (lines.isEmpty) {
+      _error('format error');
+    }
+    return RSAKeyPair(null, _privateKey(lines));
+  }
+  
+   /// Parse Public PEM
+  RSAKeyPair parsePublicPEM(String pem, {String password}) {
+    final List<String> lines = pem
+        .split('\n')
+        .map((String line) => line.trim())
+        .where((String line) => line.isNotEmpty)
+        .skipWhile((String line) => !line.startsWith(pkcsHeader))
+        .toList();
+    if (lines.isEmpty) {
+      _error('format error');
+    }
+    return RSAKeyPair(_publicKey(lines),null);
+  }
 
   RSAPrivateKey _privateKey(List<String> lines, {String password}) {
     final int header = lines.indexOf(pkcs1PrivateHeader);
