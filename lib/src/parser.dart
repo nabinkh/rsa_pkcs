@@ -68,8 +68,10 @@ class RSAPKCSParser {
     if (header >= 0) {
       footer = lines.indexOf(pkcs1PrivateFooter);
     } else if (lines.contains(pkcs8PrivateHeader)) {
+      header= lines.indexOf(pkcs8PrivateHeader);
       footer = lines.indexOf(pkcs8PrivateFooter);
     } else if (lines.contains(pkcs8PrivateEncHeader)) {
+      header = lines.indexOf(pkcs8PrivateEncHeader);
       footer = lines.indexOf(pkcs8PrivateEncFooter);
     } else {
       return null;
