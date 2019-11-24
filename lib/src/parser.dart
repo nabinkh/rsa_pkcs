@@ -62,7 +62,7 @@ class RSAPKCSParser {
   }
 
   RSAPrivateKey _privateKey(List<String> lines, {String password}) {
-    final int header = lines.indexOf(pkcs1PrivateHeader);
+    int header = lines.indexOf(pkcs1PrivateHeader);
 
     int footer;
     if (header >= 0) {
